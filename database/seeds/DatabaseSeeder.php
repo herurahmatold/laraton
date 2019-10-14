@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $sql_default = base_path('database/sql/default.sql');
+        DB::unprepared(file_get_contents($sql_default));
     }
 }
