@@ -173,6 +173,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //Add Autoload Helper in App\Helper Folder
+        App\Providers\HelperServiceProvider::class,
+
     ],
 
     /*
