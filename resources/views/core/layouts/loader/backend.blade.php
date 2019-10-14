@@ -1,0 +1,1 @@
+@include('templates.backend.'.backend_theme().'.master')
