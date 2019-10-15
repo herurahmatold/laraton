@@ -144,6 +144,12 @@
       </div>
       @endif
 
+      @if (session('warning'))
+      <div class="alert alert-warning message-header">
+          {{ session('warning') }}
+      </div>
+      @endif
+
       <h1>
         {{$meta['title']}}
       </h1>
