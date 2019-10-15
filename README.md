@@ -32,8 +32,15 @@ return laraview('my.view',['title'=>'My Title'],$data);
 - [x] Login
 - [x] Template
 - [x] Helper
-- [ ] Avatar
-- [ ] Profile
+- [x] Avatar
+- [x] Thumbnail Image Upload
+- [x] Profile
 - [ ] User Manager
 - [ ] Usergroup Manager
+- [ ] Application Configuration
+- [ ] Company Configuration
+- [ ] Logo & Favicon
+- [ ] Menu Manager
+- [ ] Datatables
+- [ ] Content Management System (Like wordpress)
 
