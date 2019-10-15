@@ -1,17 +1,13 @@
 <?php
+use App\Libraries\Core\Laraton;
 use App\Models\Core\Options;
 
 if(!function_exists('option_get'))
 {
 	function option_get($key)
 	{
-		$item=Options::select('option_value')->where('option_key',$key)->first();
-		if(!empty($item->option_value))
-		{
-			return $item->option_value;
-		}else{
-			return "";
-		}
+        $laraton=new Laraton();
+        return $laraton->option_get($key);
 	}
 }
 
