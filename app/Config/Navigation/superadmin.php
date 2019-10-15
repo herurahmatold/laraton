@@ -26,15 +26,17 @@ $menu_config=[
         'child'=>[
             'Application'=>[
                 'icon'=>'fa fa-circle-o',
-                'route'=>'core.users.group'
+                'route'=>'core.config.general',
+                'params'=>['prefix'=>'application']
             ],
             'Company'=>[
                 'icon'=>'fa fa-circle-o',
-                'route'=>'core.users.user'
+                'route'=>'core.config.general',
+                'params'=>['prefix'=>'company']
             ],
             'Logo & Favicon'=>[
                 'icon'=>'fa fa-circle-o',
-                'route'=>'core.users.user'
+                'route'=>'core.config.logo'
             ],
         ]
     ]
