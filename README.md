@@ -40,7 +40,4 @@ return laraview('my.view',['title'=>'My Title'],$data);
 - [ ] Application Configuration
 - [ ] Company Configuration
 - [ ] Logo & Favicon
-- [ ] Menu Manager
-- [ ] Datatables
-- [ ] Content Management System (Like wordpress)
 
