@@ -17,11 +17,30 @@ Route::get('logout', 'Core\Auth\LogoutController@index')->name('logout');
 Route::post('/dologin', 'Core\Auth\LoginController@check_login')->name('logindo');
 
 Route::group(['middleware' => 'check.authentication'], function () {
+    /* Dashboard */
     Route::get('dashboard', 'Core\Member\DashboardController@index')->name('dashboard');
-    Route::get('dashboard/tes', 'Core\Member\DashboardController@index_tes')->name('dashboard.tes');
-    Route::get('core/users/group', 'Core\Member\DashboardController@index')->name('core.users.group');
-    Route::get('core/users/user', 'Core\Member\DashboardController@index')->name('core.users.user');
-    Route::get('user/profile', 'Core\Member\DashboardController@index')->name('user.profile');
+    
+
+    /* Core Prefix*/
+    Route::prefix('core')->group(function(){
+        /* User Management */
+        Route::get('users/group', 'Core\Users\GroupController@index')->name('core.users.group');
+        Route::get('users/user', 'Core\Users\UserController@index')->name('core.users.user');
+        
+
+        /* Configuration */
+        Route::get('config/general/{prefix}', 'Core\Config\GeneralController@index')->name('core.config.general');
+        Route::get('config/logo', 'Core\Config\LogoController@index')->name('core.config.logo');
+
+        /* User Route */
+        Route::prefix('user')->group(function(){
+            Route::get('profile', 'Core\Member\ProfileController@index')->name('user.profile');
+            Route::post('profile/update', 'Core\Member\ProfileController@profile_update')->name('user.profile.update');
+            Route::post('profile/avatar/update', 'Core\Member\ProfileController@avatar_update')->name('user.profile.avatar.update');
+        });        
+    });
+    
+
 
     /* SET ROUTE WITH AUTHENTICATION BACKEND HERE */
 
