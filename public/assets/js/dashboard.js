@@ -48,6 +48,15 @@ $(function () {
 		});
 	}
 
+	if ($(".no-space").length > 0) {
+		$(".no-space").each(function(){
+			$(this).on('keypress', function (e) {
+				if (e.which == 32)
+					return false;
+			});
+		});
+	}
+
 	if ($(".select2").length) {
 		$(".select2").select2();
 	}
