@@ -23,6 +23,8 @@ function user_group_name()
         $UserLib=new UserLib();
         $group_name=$UserLib->get_group_info($user_group_id,'group_name');
         return $group_name;
+    }else{
+        return redirect()->route('front');
     }
 
 }
@@ -36,7 +38,6 @@ function user_group_value()
         $group_value=$UserLib->get_group_info($user_group_id,'group_value');
         return $group_value;
     }
-
 }
 
 function user_avatar($size='')
@@ -45,4 +46,10 @@ function user_avatar($size='')
     $UserLib=new UserLib();
     $avatar=$UserLib->get_user_avatar($userid,$size);
     return $avatar;
+}
+
+function access_page($access)
+{
+    $auth=new AuthLoader();
+    return $auth->check_access_page($access);
 }
