@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'Core\Auth\LoginController@index');
+Route::get('/', 'Core\Auth\LoginController@index')->name('front');
 Route::get('login', 'Core\Auth\LoginController@index')->name('login');
 Route::get('logout', 'Core\Auth\LogoutController@index')->name('logout');
 Route::post('/dologin', 'Core\Auth\LoginController@check_login')->name('logindo');
@@ -24,9 +24,14 @@ Route::group(['middleware' => 'check.authentication'], function () {
     /* Core Prefix*/
     Route::prefix('core')->group(function(){
         /* User Management */
-        Route::get('users/group', 'Core\Users\GroupController@index')->name('core.users.group');
-        Route::get('users/user', 'Core\Users\UserController@index')->name('core.users.user');
-        
+        Route::prefix('users')->group(function(){
+            Route::get('group', 'Core\Users\GroupController@index')->name('core.users.group');
+            Route::post('group/store', 'Core\Users\GroupController@store')->name('core.users.group.store');
+            Route::get('group/edit/{id}', 'Core\Users\GroupController@edit')->name('core.users.group.edit');
+            Route::get('group/delete/{id}', 'Core\Users\GroupController@delete')->name('core.users.group.delete');
+            Route::post('group/update', 'Core\Users\GroupController@update')->name('core.users.group.update');
+            Route::get('user', 'Core\Users\UserController@index')->name('core.users.user');
+        });
 
         /* Configuration */
         Route::get('config/general/{prefix}', 'Core\Config\GeneralController@index')->name('core.config.general');

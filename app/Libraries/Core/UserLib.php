@@ -187,4 +187,116 @@ class UserLib
         return $output;
     }
 
+    public function user_group_add($name,$value)
+    {
+        $output=array();
+        $check=UserGroup::where('group_name',$name)->count();
+        if($check)
+        {
+            $output=array(
+                'status'=>false,
+                'message'=>'User Group Exists'
+            );
+        }else{
+            $group=new UserGroup();
+            $group->group_name = $name;
+            $group->group_value = $value;
+            $save=$group->save();
+            if($save)
+            {
+                $output=array(
+                    'status'=>true,
+                    'message'=>'User Group Added'
+                );
+            }else{
+                $output=array(
+                    'status'=>false,
+                    'message'=>'System Error'
+                );
+            }
+        }
+        return $output;
+    }
+
+    public function user_group_edit($group_id,$name,$value)
+    {
+        $output=array();
+        $check=UserGroup::where('id',$group_id)->first(['id','group_name']);
+        if($check)
+        {
+            $next=false;
+            $last_name=$check->group_name;
+            if($last_name==$name)
+            {
+                $next=true;
+            }else{
+                $check_name=UserGroup::where('group_name',$name)->count();
+                if(!$check_name)
+                {
+                    $next=true;
+                }
+            }
+            if($next==true)
+            {
+                $save=UserGroup::where('id',$group_id)
+                    ->update([
+                    'group_name'=>$name,
+                    'group_value'=>$value
+                ]);
+                if($save >=0)
+                {
+                    $output=array(
+                        'status'=>true,
+                        'message'=>'User Group Updated'
+                    );
+                }else{
+                    $output=array(
+                        'status'=>false,
+                        'message'=>'System Error'
+                    );
+                }
+            }else{
+                $output=array(
+                    'status'=>false,
+                    'message'=>'User Group Exists'
+                );
+            }
+        }else{
+            $output=array(
+                'status'=>false,
+                'message'=>'User Group Not Exists'
+            );
+        }
+        return $output;
+    }
+
+    public function user_group_delete($group_id)
+    {
+        $output=array();
+        $check=UserGroup::where('id',$group_id)->first('id');
+        if($check)
+        {
+            $delete=UserGroup::where('id',$group_id)
+                ->delete();
+            if($delete)
+            {
+                $output=array(
+                    'status'=>true,
+                    'message'=>'User Group Deleted'
+                );
+            }else{
+                $output=array(
+                    'status'=>false,
+                    'message'=>'System Error'
+                );
+            }
+        }else{
+            $output=array(
+                'status'=>false,
+                'message'=>'User Group Not Exists'
+            );
+        }
+        return $output;
+    }
+
 }
