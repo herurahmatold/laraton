@@ -49,7 +49,7 @@ function laraconfig($file,$key)
     }
 }
 
-function message_header($redirectTo,$type='success',$message)
+function message_header($redirectTo,$type='success',$message,$route_parameter=[])
 {
-    return redirect()->route($redirectTo)->with([$type=>$message]);
+    return redirect()->route($redirectTo,$route_parameter)->with([$type=>$message]);
 }
