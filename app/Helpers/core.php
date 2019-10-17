@@ -21,7 +21,7 @@ function laralogin($title='',$data=[])
     return view('core.layouts.loader.login',compact('meta_title','data'));
 }
 
-function laraview($view='',$meta_config=[],$data=[])
+function laraview($view='',$meta_config=[],$data=[],$merge_data=[])
 {   
     $meta=array('title'=>option_get('app_name'));
     if(!empty($meta_config))
@@ -33,7 +33,8 @@ function laraview($view='',$meta_config=[],$data=[])
     {
         $content=$view;
     }
-    return view('core.layouts.loader.backend',compact('content','data','meta'));
+    $merge_core=array_merge(['content'=>$content],$data,['meta'=>$meta]);
+    return view('core.layouts.loader.backend',$merge_core,$merge_data);
 }
 
 function laraconfig($file,$key)
