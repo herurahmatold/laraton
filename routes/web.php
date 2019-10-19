@@ -52,8 +52,12 @@ Route::group(['middleware' => 'check.authentication'], function () {
             });
 
             /* Configuration */
-            Route::get('config/general/{prefix}', 'Core\Config\GeneralController@index')->name('core.config.general');
-            Route::get('config/logo', 'Core\Config\LogoController@index')->name('core.config.logo');
+            Route::prefix('config')->group(function(){
+                Route::get('general/{prefix}', 'Core\Config\GeneralController@index')->name('core.config.general');
+                Route::post('general/update', 'Core\Config\GeneralController@update')->name('core.config.general.update');
+                Route::get('template', 'Core\Config\TemplateController@index')->name('core.config.template');
+                Route::get('logo', 'Core\Config\LogoController@index')->name('core.config.logo');
+            });
 
              
         });
