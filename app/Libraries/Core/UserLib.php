@@ -23,6 +23,18 @@ class UserLib
         return $output;
     }
 
+    public function get_user_info_by_email($email,$field)
+    {
+        $output="";
+        $item=Users::where('email',$email)->select($field)->first();
+        if(!empty($item))
+        {
+            $output=$item->$field;
+        }
+
+        return $output;
+    }
+
     public function get_user_avatar($id,$size='')
     {
         $path=laraconfig('global','upload_path');
@@ -62,7 +74,7 @@ class UserLib
         return $count;
     }
 
-    public function user_edit($id,$name,$email,$password_old='',$password_new='',$password_confirm='')
+    public function user_edit($id,$name,$email,$password_old='',$password_new='',$password_confirm='',$group='',$status='')
     {
         $output=array();
         try {
@@ -79,15 +91,43 @@ class UserLib
             }
             if($check)
             {
-                $save=Users::where('id',$id)->update([
-                    'name'=>$name,
-                    'email'=>$email
-                ]);
+                $data=[];
+                if(!empty($name))
+                {
+                    $data[]=['name'=>$name];
+                }
+                if(!empty($email))
+                {
+                    $data[]=['email'=>$email];
+                }
+                if(!empty($group))
+                {
+                    $data[]=['user_group_id'=>$group];
+                }
+                if($status !='')
+                {
+                    $data[]=['status'=>$status];
+                }
+                
+                $single_data=array_flatten($data);
+                $save=Users::where('id',$id)->update($single_data);
                 if($save)
                 {
-                    if(!empty($password_old) && !empty($password_new))
+                    $next_password=FALSE;
+                    $with_session=TRUE;
+                    if(!empty($group))
                     {
-                        $action=$this->user_change_password($id,$password_old,$password_new,$password_confirm);
+                        $next_password=TRUE;
+                        $with_session=FALSE;
+                    }else{
+                        if(!empty($password_old) && !empty($password_new))
+                        {
+                            $next_password=TRUE;
+                        }
+                    }
+                    if($next_password==TRUE)
+                    {
+                        $action=$this->user_change_password($id,$password_old,$password_new,$password_confirm,$with_session);
                         if($action['status']==true)
                         {
                             $output=array('status'=>true,'type'=>'success','message'=>'Success Update Profile. Password Change Success');
@@ -105,13 +145,13 @@ class UserLib
             }
             
         } catch (\Exception $e) {
-            $output=array('status'=>false,'message'=>$e->getMessage());
+            $output=array('status'=>false,'type'=>'error','message'=>$e->getMessage());
         }
 
         return $output;
     }
 
-    public function user_change_password($id,$password_old,$password_new,$password_confirm)
+    public function user_change_password($id,$password_old,$password_new,$password_confirm,$with_session=TRUE)
     {
         $output=array();
         try {
@@ -119,7 +159,17 @@ class UserLib
             {
                 $db_pass=$this->get_user_info($id,'password');
                 $hashing=new Hashing();
-                if($hashing->CheckPassword($password_old,$db_pass))
+                $check_pass=FALSE;
+                if($with_session==TRUE)
+                {
+                    if($hashing->CheckPassword($password_old,$db_pass))
+                    {
+                        $check_pass=TRUE;
+                    }
+                }else{
+                    $check_pass=TRUE;
+                }
+                if($check_pass==TRUE)
                 {
                     $new_pass=$hashing->HashPassword($password_new);
                     $save=Users::where('id',$id)->update([
@@ -145,12 +195,12 @@ class UserLib
         return $output;
     }
 
-    public function user_change_avatar($id)
+    public function user_change_avatar($id,$field_custom='file')
     {
         $output=array();
-        if(isset($_FILES['file']['name']))
+        if(isset($_FILES[$field_custom]['name']))
         {
-            $extension=pathinfo($_FILES['file']['name'],PATHINFO_EXTENSION);
+            $extension=pathinfo($_FILES[$field_custom]['name'],PATHINFO_EXTENSION);
             $default_thumbnail=[200,800];
             $thumbnail_size=laraconfig('global','thumbnail_size');
             if(empty($thumbnail_size))
@@ -163,8 +213,7 @@ class UserLib
             $avatar_file=$path.$avatar_name;
             $avatar_url=$url.'/'.$avatar_name;
             $manager=new ImageManager();
-            $save=$manager->make($_FILES['file']['tmp_name'])->save($avatar_file);
-            //$save=$manager->make($_FILES['file']['tmp_name'])->resize($thumbnail_size)->save($avatar_file);
+            $save=$manager->make($_FILES[$field_custom]['tmp_name'])->save($avatar_file);
             if($save)
             {
                 $fileLib=new File();
@@ -298,5 +347,107 @@ class UserLib
         }
         return $output;
     }
+
+    public function user_add($group,$name,$username,$password,$email,$avatar='',$status=0)
+    {
+        $output=array();
+        
+        if($this->user_no_exists($username,$email)==TRUE)
+        {
+            $hashing=new Hashing();
+            $new_password=$hashing->HashPassword($password);
+            $user=new Users();
+            $user->name     = $name;
+            $user->username = $username;
+            $user->email    = $email;
+            $user->password = $new_password;
+            $user->user_group_id    = $group;
+            $user->status   = $status;
+            $user->avatar   = $avatar;
+            $user->isDeleted = 0;
+            $save=$user->save();
+            if($save)
+            {
+                $output=[
+                    'status'=>true,
+                    'message'=>'Success Add User'
+                ];
+            }else{
+                $output=[
+                    'status'=>false,
+                    'message'=>'System Error'
+                ];
+            }
+        }else{
+            $output=[
+                'status'=>false,
+                'message'=>'Username or Email Exists'
+            ];
+        }
+
+        return $output;
+    }
+
+    public function user_delete($id,$force_delete=FALSE)
+    {
+        $delete=0;
+        if($force_delete==true)
+        {
+            $delete=Users::where('id',$id)->delete();            
+        }else{
+            $delete=Users::where('id',$id)->update(['isDeleted'=>1]);
+        }
+        return $delete;
+    }
+
+    private function user_no_exists($username,$email,$last_user=NULL)
+	{
+		$n1=FALSE;
+		$n2=FALSE;
+		if(empty($last_user))
+		{
+            $check_user=Users::whereRaw('LOWER(username) = ?',[strtolower($username)])->count();
+			if(!$check_user)
+			{
+				$n1=TRUE;
+			}
+            $check_email=Users::whereRaw('LOWER(email) = ? ',[strtolower($email)])->count();
+			if(!$check_email)
+			{
+				$n2=TRUE;
+			}
+		}else{
+			$last_username=$this->get_user_info($last_user,'username');
+			$last_email=$this->get_user_info($last_user,'email');
+			
+			if($last_username==$username)
+			{
+				$n1=TRUE;
+			}else{
+				$check_user=Users::whereRaw('LOWER(username) = ?',[strtolower($username)])->count();
+                if(!$check_user)
+                {
+                    $n1=TRUE;
+                }
+			}
+			
+			if($last_email==$email)
+			{
+				$n2=TRUE;
+			}else{
+				$check_email=Users::whereRaw('LOWER(email) = ? ',[strtolower($email)])->count();
+                if(!$check_email)
+                {
+                    $n2=TRUE;
+                }
+			}
+		}
+		if($n1==TRUE && $n2==TRUE)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 }
