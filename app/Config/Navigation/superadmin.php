@@ -27,12 +27,16 @@ $menu_config=[
             'Application'=>[
                 'icon'=>'fa fa-circle-o',
                 'route'=>'core.config.general',
-                'params'=>['prefix'=>'application']
+                'params'=>['prefix'=>'app']
             ],
             'Company'=>[
                 'icon'=>'fa fa-circle-o',
                 'route'=>'core.config.general',
                 'params'=>['prefix'=>'company']
+            ],
+            'Template'=>[
+                'icon'=>'fa fa-circle-o',
+                'route'=>'core.config.template'
             ],
             'Logo & Favicon'=>[
                 'icon'=>'fa fa-circle-o',
