@@ -35,7 +35,7 @@ return laraview('my.view',['title'=>'My Title'],$data);
 - [x] Avatar
 - [x] Thumbnail Image Upload
 - [x] Profile
-- [ ] User Manager
+- [x] User Manager
 - [x] Usergroup Manager
 - [ ] Application Configuration
 - [ ] Company Configuration
