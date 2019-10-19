@@ -19,6 +19,23 @@ class GroupController extends Controller
             ->get();
         return laraview('core.users.group.index',array('title'=>'User Groups'),compact('data'));
     }
+
+    public function get_user_group(Request $request)
+    {
+        if($request->ajax())
+        {
+            $keyword=$request->input('q');
+            $data=UserGroup::select('id','group_value as value')->where('id','!=',1);
+            if(!empty($keyword))
+            {
+                $data->where('group_value','like','%'.$keyword.'%');
+            }
+            $final_data=$data->get();
+            return response()->json($final_data);
+        }else{
+            exit('Not Ajax Request');
+        }
+    }
     
     public function store(Request $request)
     {
