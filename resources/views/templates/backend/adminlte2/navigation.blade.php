@@ -1,5 +1,10 @@
 <?php
-$navFile=include(base_path('app/Config/Navigation/'.user_group_name().'.php'));
+$path=base_path('app/Config/Navigation/'.user_group_name().'.php');
+$navFile=array();
+if(file_exists($path))
+{
+	$navFile=include($path);
+}
 function template_menu($menu)
 {
     $output='';
