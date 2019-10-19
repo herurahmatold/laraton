@@ -39,29 +39,31 @@ class GroupController extends Controller
     
     public function store(Request $request)
     {
-       $validatedData = $request->validate([
-           'name' => 'required',
-           'value' => 'required',
-       ]);
-       if($validatedData)
-       {
-           $name=$request->input('name');
-           $value=$request->input('value');
-           $userLib=new UserLib();
-           $action=$userLib->user_group_add($name,$value);
-           if($action['status']==true)
-           {
-                return message_header('core.users.group','success',$action['message']);
-           }else{
-                return message_header('core.users.group','error',$action['message']);
-           }
-       }else {
-           return message_header('core.users.group','error','Validation Error');
-       }
+        access_page(array('superadmin'));
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'value' => 'required',
+        ]);
+        if($validatedData)
+        {
+            $name=$request->input('name');
+            $value=$request->input('value');
+            $userLib=new UserLib();
+            $action=$userLib->user_group_add($name,$value);
+            if($action['status']==true)
+            {
+                    return message_header('core.users.group','success',$action['message']);
+            }else{
+                    return message_header('core.users.group','error',$action['message']);
+            }
+        }else {
+            return message_header('core.users.group','error','Validation Error');
+        }
     }
 
     public function edit($id)
     {
+        access_page(array('superadmin'));
         $data=UserGroup::where('id',$id)->where('id','!=',1)->first(['id','group_name','group_value']);
         if(!$data)
         {
@@ -73,6 +75,7 @@ class GroupController extends Controller
 
     public function update(Request $request)
     {
+        access_page(array('superadmin'));
         $validatedData = $request->validate([
            'name' => 'required',
            'value' => 'required',
@@ -98,6 +101,7 @@ class GroupController extends Controller
 
     public function delete($id)
     {
+        access_page(array('superadmin'));
         $userLib=new UserLib();
         $action=$userLib->user_group_delete($id);
         if($action['status']==true)

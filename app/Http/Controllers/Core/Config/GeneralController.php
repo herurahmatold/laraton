@@ -11,7 +11,8 @@ class GeneralController extends Controller
     private $prefix_label=['app'=>'Application','company'=>'Company'];
     
     function index($prefix)
-    {        
+    {
+        access_page(array('superadmin'));        
         $get_prefix=$prefix?$prefix:'app';
         $len=strlen($get_prefix);
         $data=Options::whereRaw('LEFT(option_key,'.$len.') = ?',$get_prefix)->get();        
@@ -25,6 +26,7 @@ class GeneralController extends Controller
 
     function update(Request $request)
     {
+        access_page(array('superadmin'));
         $prefix=$request->input('prefix');
         $item=$request->input('item');
         foreach($item as $k=>$v)
