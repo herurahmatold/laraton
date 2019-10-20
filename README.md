@@ -43,4 +43,6 @@ return laraview('my.view',['title'=>'My Title'],$data);
 - [x] Application Configuration
 - [x] Company Configuration
 - [x] Logo & Favicon
-
+- [ ] System Log
+- [ ] Restore Soft Delete
+- [ ] Console Manager
