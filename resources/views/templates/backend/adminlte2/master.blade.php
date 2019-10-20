@@ -36,9 +36,9 @@
     <!-- Logo -->
     <a href="{{route('dashboard')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><img src="<?=app_logo(200);?>" style="width:30px;margin-right:5px;"/></span>
+      <span class="logo-mini"><img src="<?=app_logo(200);?>" style="width:30px;height:30px;margin-right:5px;"/></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><img src="<?=app_logo(200);?>" style="width:30px;margin-right:5px;"/><b>{{option_get('app_name')}}</b></span>
+      <span class="logo-lg"><img src="<?=app_logo(200);?>" style="width:30px;height:30px;margin-right:5px;"/><b>{{option_get('app_name')}}</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
