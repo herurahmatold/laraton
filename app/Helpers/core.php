@@ -1,17 +1,13 @@
 <?php
+use App\Libraries\Core\Laraton;
 use App\Models\Core\Options;
 
 if(!function_exists('option_get'))
 {
 	function option_get($key)
 	{
-		$item=Options::select('option_value')->where('option_key',$key)->first();
-		if(!empty($item->option_value))
-		{
-			return $item->option_value;
-		}else{
-			return "";
-		}
+        $laraton=new Laraton();
+        return $laraton->option_get($key);
 	}
 }
 
@@ -25,7 +21,7 @@ function laralogin($title='',$data=[])
     return view('core.layouts.loader.login',compact('meta_title','data'));
 }
 
-function laraview($view='',$meta_config=[],$data=[])
+function laraview($view='',$meta_config=[],$data=[],$merge_data=[])
 {   
     $meta=array('title'=>option_get('app_name'));
     if(!empty($meta_config))
@@ -37,7 +33,8 @@ function laraview($view='',$meta_config=[],$data=[])
     {
         $content=$view;
     }
-    return view('core.layouts.loader.backend',compact('content','data','meta'));
+    $merge_core=array_merge(['content'=>$content],$data,['meta'=>$meta]);
+    return view('core.layouts.loader.backend',$merge_core,$merge_data);
 }
 
 function laraconfig($file,$key)
@@ -52,7 +49,19 @@ function laraconfig($file,$key)
     }
 }
 
-function message_header($redirectTo,$type='success',$message)
+function message_header($redirectTo,$type='success',$message,$route_parameter=[])
 {
-    return redirect()->route($redirectTo)->with([$type=>$message]);
+    return redirect()->route($redirectTo,$route_parameter)->with([$type=>$message]);
+}
+
+function app_logo($size='')
+{
+    $laraton=new Laraton();
+    return $laraton->get_logo('logo',$size);
+}
+
+function app_favicon($size='')
+{
+    $laraton=new Laraton();
+    return $laraton->get_logo('favicon',$size);
 }

@@ -24,6 +24,30 @@ if ( ! function_exists('string_array_multi_sort_by_column'))
 	}
 }
 
+if ( ! function_exists('array_flatten')) 
+{
+
+	function array_flatten($array) 
+	{ 
+		if (!is_array($array)) { 
+			return FALSE; 
+		} 
+		$result = array(); 
+		foreach ($array as $key => $value) { 
+			if (is_array($value)) { 
+				$arrayList=array_flatten($value);
+				foreach ($arrayList as $listkey=>$listItem) {
+					$result[$listkey] = $listItem; 
+				}
+			} else {
+				$result[$key] = $value; 
+			} 
+		} 
+		return $result; 
+	}
+
+}
+
 if(!function_exists('string_create_random'))
 {
     /**

@@ -28,7 +28,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="{{route('login')}}"><b>{{option_get('app_name')}}</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -59,7 +59,7 @@
     @endif
       <div class="form-group has-feedback">
         <input type="text" name="username" class="form-control" placeholder="Username" value="{{old('username')}}">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" name="password" class="form-control" placeholder="Password">

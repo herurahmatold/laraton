@@ -8,15 +8,32 @@ use App\Libraries\Core\Hashing;
 
 class AuthLoader
 {
-    public $session_name='larauser';
+    public $session_name;
     protected $username_min_length=2;
     protected $password_min_length=3;
     public $user_status=array(0=>'Non Active',1=>'Active');
+    protected $session_var;
+
+    public function __construct()
+    {
+        $this->session_name=laraconfig('global','session_name');
+        
+    }
 
     public function has_login()
     {
         if(Session::get($this->session_name)){
             return true;
+        }
+    }
+
+    public function check_access_page($access)
+    {
+        $session_data=Session::get($this->session_name);   
+        $group_name=$session_data['group_name'];
+        if(!in_array($group_name,$access))
+        {
+            $this->logout();
         }
     }
 

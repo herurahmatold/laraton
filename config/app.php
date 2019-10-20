@@ -176,6 +176,9 @@ return [
         //Add Autoload Helper in App\Helper Folder
         App\Providers\HelperServiceProvider::class,
 
+        // For Thumbnail Upload
+        Intervention\Image\ImageServiceProvider::class
+
     ],
 
     /*
@@ -225,7 +228,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        //Thumbnail upload
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

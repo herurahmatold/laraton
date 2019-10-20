@@ -36,9 +36,9 @@
     <!-- Logo -->
     <a href="{{route('dashboard')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>PP</span>
+      <span class="logo-mini"><img src="<?=app_logo(200);?>" style="width:30px;height:30px;margin-right:5px;"/></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>{{option_get('app_name')}}</b></span>
+      <span class="logo-lg"><img src="<?=app_logo(200);?>" style="width:30px;height:30px;margin-right:5px;"/><b>{{option_get('app_name')}}</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -122,7 +122,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      @if (session('error'))
+      @if (session('error'))  
       <div class="alert alert-danger">
           <i class="fa fa-exclamation-triangle message-header"></i> {{ session('error') }}
       </div>
@@ -141,6 +141,12 @@
       @if (session('success'))
       <div class="alert alert-success message-header">
           {{ session('success') }}
+      </div>
+      @endif
+
+      @if (session('warning'))
+      <div class="alert alert-warning message-header">
+          {{ session('warning') }}
       </div>
       @endif
 
