@@ -56,6 +56,7 @@ Route::group(['middleware' => 'check.authentication'], function () {
                 Route::get('general/{prefix}', 'Core\Config\GeneralController@index')->name('core.config.general');
                 Route::post('general/update', 'Core\Config\GeneralController@update')->name('core.config.general.update');
                 Route::get('logo', 'Core\Config\LogoController@index')->name('core.config.logo');
+                Route::post('logo/update', 'Core\Config\LogoController@update')->name('core.config.logo.update');
             });
 
              
