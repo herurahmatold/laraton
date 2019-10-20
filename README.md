@@ -39,6 +39,5 @@ return laraview('my.view',['title'=>'My Title'],$data);
 - [x] Usergroup Manager
 - [x] Application Configuration
 - [x] Company Configuration
-- [ ] Template Configuration
 - [ ] Logo & Favicon
 
