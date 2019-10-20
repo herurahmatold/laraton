@@ -2,6 +2,9 @@
 namespace App\Libraries\Core;
 
 use App\Models\Core\Options;
+use App\Libraries\Core\File;
+
+use Intervention\Image\ImageManager;
 
 
 class Laraton
@@ -42,6 +45,47 @@ class Laraton
         }
 
         return $default;
+    }
+
+    public function app_change_logo($field_custom='logo')
+    {
+        $output=array();
+        if(isset($_FILES[$field_custom]['name']))
+        {
+            $extension=pathinfo($_FILES[$field_custom]['name'],PATHINFO_EXTENSION);
+            $default_thumbnail=[200,800];
+            $thumbnail_size=laraconfig('global','thumbnail_size');
+            if(empty($thumbnail_size))
+            {
+                $thumbnail_size=$default_thumbnail;
+            }
+            $path=laraconfig('global','upload_path');
+            $url=laraconfig('global','upload_url');
+            $avatar_name=$field_custom.".".$extension;
+            $avatar_file=$path.$avatar_name;
+            $avatar_url=$url.'/'.$avatar_name;
+            $manager=new ImageManager();
+            $save=$manager->make($_FILES[$field_custom]['tmp_name'])->save($avatar_file);
+            if($save)
+            {
+                $fileLib=new File();
+                $fileLib->create_directory($path.'thumbs');
+                foreach($thumbnail_size as $k)
+                {
+                    $thumb_folder=$path.'thumbs/'.$k;
+                    $fileLib->create_directory($thumb_folder);
+                    $thumb_file=$thumb_folder.'/'.$avatar_name;
+                    $manager->make($avatar_file)->resize($k)->save($thumb_file);
+                }
+                Options::where('option_key',$field_custom)->update(['option_value'=>$avatar_name]);
+                $output=array('status'=>true,'message'=>'Success Upload','img'=>$avatar_url.'?time='.time());
+            }else{
+                $output=array('status'=>false,'message'=>'Failed Upload');
+            }
+        }else{
+            $output=array('status'=>false,'message'=>'Invalid Image');
+        }
+        return $output;
     }
 
     
