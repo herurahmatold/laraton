@@ -27,6 +27,9 @@ return laraview('my.view',['title'=>'My Title'],$data);
 - In view blade. You not create script for template again. It's Automatically !!
 - Please show app\Helpers for another cheating script !!
 
+## Documentation
+[https://github.com/herurahmat/laraton-doc](https://github.com/herurahmat/laraton-doc "Documentation")
+
 ## Modules
 
 - [x] Login
