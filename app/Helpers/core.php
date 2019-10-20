@@ -53,3 +53,15 @@ function message_header($redirectTo,$type='success',$message,$route_parameter=[]
 {
     return redirect()->route($redirectTo,$route_parameter)->with([$type=>$message]);
 }
+
+function app_logo($size='')
+{
+    $laraton=new Laraton();
+    return $laraton->get_logo('logo',$size);
+}
+
+function app_favicon($size='')
+{
+    $laraton=new Laraton();
+    return $laraton->get_logo('favicon',$size);
+}
