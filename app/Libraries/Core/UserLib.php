@@ -223,7 +223,7 @@ class UserLib
                     $thumb_folder=$path.'thumbs/'.$k;
                     $fileLib->create_directory($thumb_folder);
                     $thumb_file=$thumb_folder.'/'.$avatar_name;
-                    $manager->make($avatar_file)->fit($k)->save($thumb_file);
+                    $manager->make($avatar_file)->resize($k)->save($thumb_file);
                 }
                 Users::where('id',$id)->update(['avatar'=>$avatar_name]);
                 $output=array('status'=>true,'message'=>'Success Upload','img'=>$avatar_url.'?time='.time());
