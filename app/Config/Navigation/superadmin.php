@@ -34,10 +34,6 @@ $menu_config=[
                 'route'=>'core.config.general',
                 'params'=>['prefix'=>'company']
             ],
-            'Template'=>[
-                'icon'=>'fa fa-circle-o',
-                'route'=>'core.config.template'
-            ],
             'Logo & Favicon'=>[
                 'icon'=>'fa fa-circle-o',
                 'route'=>'core.config.logo'
