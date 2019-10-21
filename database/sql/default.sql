@@ -3,7 +3,7 @@ INSERT INTO `options` (`id`, `option_key`, `option_value`, `is_sistem`) VALUES
 (2, 'logo', 'logo.jpg', 1),
 (3, 'favicon', 'favicon.jpg', 1),
 (4, 'app_name', 'Laraton', 1),
-(5, 'app_version', '1.0.0-PreBatch', 1),
+(5, 'app_version', '1.0.0-Alpha4', 1),
 (6, 'app_year', '2019', 1),
 (7, 'app_footer_custom', '', 1),
 (8, 'company_name', 'Contoh Perusahaan', 1),
