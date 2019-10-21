@@ -21,7 +21,7 @@ if(!function_exists('com_password'))
 		
 		$o='
 		<div class="input-group">
-		  <input type="password" name="'.$Name.'" id="'.$CustomID.'" class="form-control '.$CustomClass.'" placeholder="'.$Placeholder.'" '.$Required.' value="'.old($Name).'">
+		  <input type="password" name="'.$Name.'" id="'.$CustomID.'" minlength="6" class="form-control '.$CustomClass.'" placeholder="'.$Placeholder.'" '.$Required.' value="'.old($Name).'">
 		  <span class="input-group-btn">
 		    <button class="btn btn-default" tabindex="-1" type="button" password-trigger="'.$CustomID.'" password-stat=0>
 		    	<i class="fa fa-eye"></i>
