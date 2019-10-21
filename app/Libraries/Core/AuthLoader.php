@@ -5,6 +5,8 @@ use Session;
 use App\Models\Core\Users;
 use App\Models\Core\UserGroup;
 use App\Libraries\Core\Hashing;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AuthLoader
 {
@@ -33,7 +35,8 @@ class AuthLoader
         $group_name=$session_data['group_name'];
         if(!in_array($group_name,$access))
         {
-            $this->logout();
+            header('Location: '.route('dashboard'));
+            exit();
         }
     }
 
