@@ -1,5 +1,44 @@
 <?php
 
+if(!function_exists('com_month_select'))
+{
+	function com_month_select($name,$firstvalue='',$att=array())
+	{
+		$arr=array(
+		'1'=>'Januari',
+		'2'=>'Februari',
+		'3'=>'Maret',
+		'4'=>'April',
+		'5'=>'Mei',
+		'6'=>'Juni',
+		'7'=>'Juli',
+		'8'=>'Agustus',
+		'9'=>'September',
+		'10'=>'Oktober',
+		'11'=>'November',
+		'12'=>'Desember',
+		);
+		$o='';
+		$attribute="";
+		if(!empty($att))
+		{
+			$attribute=string_implode_array($att);
+		}
+		$o.='<select name="'.$name.'" '.$attribute.'>';
+		foreach($arr as $k=>$v)
+		{
+			$js='';
+			if($firstvalue==$k)
+			{
+				$js=' selected="selected"';
+			}
+			$o.='<option value="'.$k.'"'.$js.'>'.$v.'</option>';
+		}
+		$o.='</select>';
+		return $o;
+	}
+}
+
 if(!function_exists('com_password'))
 {
 	function com_password($Name,$Placeholder="",$isRequired=FALSE,$CustomClass="",$CustomID="")
