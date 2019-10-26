@@ -1,6 +1,25 @@
 <?php
 use App\Libraries\Core\Laraton;
 use App\Models\Core\Options;
+use DB;
+
+if(!function_exists('db_count'))
+{
+	function db_count($table,$where=[],$whereRaw='')
+	{
+        $count=DB::table($table);
+        if(!empty($where))
+        {
+            $count->where($where);
+        }
+        if(!empty($whereRaw))
+        {
+            $count->whereRaw($whereRaw);
+        }
+        $total=$count->count();
+        return $total;
+	}
+}
 
 if(!function_exists('option_get'))
 {
@@ -13,7 +32,7 @@ if(!function_exists('option_get'))
 
 function laralogin($title='',$data=[])
 {
-    $meta_title=env('APP_NAME');
+    $meta_title=option_get('company_name');
     if(!empty($title))
     {
         $meta_title=$title;
