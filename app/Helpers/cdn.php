@@ -124,3 +124,20 @@ if(!function_exists('cdn_datatables'))
 		return $a;
 	}
 }
+
+if(!function_exists('cdn_highchart'))
+{
+	function cdn_highchart($theme='')
+	{
+		$url=url('/').'/assets/vendors/';
+		
+		$a='';
+		$a.=add_js($url.'highcharts/js/highcharts.js');
+		if(!empty($theme))
+		{
+			$a.=add_js($url.'highcharts/js/themes/'.$theme.'.js');
+		}
+		
+		return $a;
+	}
+}
