@@ -1,13 +1,12 @@
 <?php
 use App\Libraries\Core\Laraton;
 use App\Models\Core\Options;
-use DB;
 
 if(!function_exists('db_count'))
 {
 	function db_count($table,$where=[],$whereRaw='')
 	{
-        $count=DB::table($table);
+        $count=\DB::table($table);
         if(!empty($where))
         {
             $count->where($where);
