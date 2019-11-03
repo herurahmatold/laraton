@@ -59,7 +59,7 @@ echo add_css(asset('assets/css/profile.css'));
             <div class="form-group required chp-div" style="display:none;">
                 <label class="control-label col-sm-3"><?=$v;?></label>
                 <div class="col-md-4">
-                    <input type="password" name="<?=$k;?>" id="<?=$k;?>" class="form-control chp-input" autocomplete="off" placeholder="Entri <?=$v;?>"/>
+                    <input type="password" name="<?=$k;?>" id="<?=$k;?>" class="form-control chp-input" autocomplete="off" minlength="6" placeholder="Entri <?=$v;?>"/>
                 </div>
             </div>
             <?php
