@@ -1,9 +1,10 @@
 {
-    "name": "laravel/laravel",
+    "name": "herurahmat/laraton",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "The Laravel Skeleton.",
     "keywords": [
-        "framework",
+        "skeleton",
+        "laraton",
         "laravel"
     ],
     "license": "MIT",
