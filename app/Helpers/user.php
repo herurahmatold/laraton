@@ -87,3 +87,9 @@ function access_page($access)
     $auth=new AuthLoader();
     return $auth->check_access_page($access);
 }
+
+function add_role($access)
+{
+    $auth = new AuthLoader();
+    return $auth->check_access_page($access);
+}
