@@ -1,7 +1,7 @@
 {
     "name": "herurahmat/laraton",
     "type": "project",
-    "version":"1.0.0-Alpha3",
+    "version":"1.0",
     "description": "The Laravel Skeleton.",
     "keywords": [
         "skeleton",
