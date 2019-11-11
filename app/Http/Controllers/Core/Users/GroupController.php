@@ -46,8 +46,8 @@ class GroupController extends Controller
         ]);
         if($validatedData)
         {
-            $name=$request->input('name');
-            $value=$request->input('value');
+            $name=xss_clean($request->input('name'));
+            $value=xss_clean($request->input('value'));
             $userLib=new UserLib();
             $action=$userLib->user_group_add($name,$value);
             if($action['status']==true)
