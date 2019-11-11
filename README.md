@@ -13,6 +13,7 @@ Developed by [herurahmat](https://github.com/herurahmat)
 ## How to Implement
 
 - Git Clone https://github.com/herurahmat/laraton.git
+- Packagist `composer create-project herurahmat/laraton yourproject`
 - Run `composer install`
 - Copy `.env` file from `.env.example` using command `cp .env.example .env` then make some configs in `.env` file (please check `Config .env` Section)
 - Make sure `DB_DATABASE` is set correctly in `.env` file then run `php artisan migrate`
