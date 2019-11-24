@@ -83,3 +83,8 @@ function app_favicon($size='')
     $laraton=new Laraton();
     return $laraton->get_logo('favicon',$size);
 }
+
+function get_route_name()
+{
+    return \Route::current()->getName();
+}
