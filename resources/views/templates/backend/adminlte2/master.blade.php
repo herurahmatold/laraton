@@ -122,6 +122,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
+      
       @if (session('error'))  
       <div class="alert alert-danger">
           <i class="fa fa-exclamation-triangle message-header"></i> {{ session('error') }}
