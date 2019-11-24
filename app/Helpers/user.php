@@ -81,15 +81,3 @@ function user_avatar_custom($userid,$size='')
     $avatar=$UserLib->get_user_avatar($userid,$size);
     return $avatar;
 }
-
-function access_page($access)
-{
-    $auth=new AuthLoader();
-    return $auth->check_access_page($access);
-}
-
-function add_role($access)
-{
-    $auth = new AuthLoader();
-    return $auth->check_access_page($access);
-}
