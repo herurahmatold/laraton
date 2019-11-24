@@ -7,6 +7,7 @@ use App\Models\Core\UserGroup;
 use App\Libraries\Core\Hashing;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use DB;
 
 class AuthLoader
 {
@@ -25,6 +26,27 @@ class AuthLoader
     public function has_login()
     {
         if(Session::get($this->session_name)){
+            return true;
+        }
+    }
+
+    public function check_access_route($route_name)
+    {
+        $groupID = user_info('user_group_id');
+        if($groupID !=1)
+        {
+            $check = DB::table('page_access')->where('route_name', $route_name)->first();
+            if (!empty($check->id)) {
+                $check_detail = DB::table('page_access_detail')->where('page_access_id', $check->id)->where('user_group_id', $groupID)->count();
+                if ($check_detail > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }else{
             return true;
         }
     }

@@ -19,7 +19,19 @@ class CheckAuthentication
     {
         $auth=new AuthLoader();
         if ($auth->has_login()) {
-            return $next($request);
+            $route_name=$request->route()->getName();
+            $no_access=laraconfig('global', 'route_no_access');
+            if(!in_array($route_name,$no_access))
+            {
+                $check_access = $auth->check_access_route($route_name);
+                if ($check_access == true) {
+                    return $next($request);
+                } else {
+                    return redirect()->route('dashboard')->with('error', 'Not Authentication');
+                }
+            }else{
+                return $next($request);
+            }
         }else{
             return redirect()->route('login')->with('error', 'You must login first!');
         }

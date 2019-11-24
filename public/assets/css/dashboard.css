@@ -116,3 +116,46 @@ ol.sortable,ol.sortable ol {
 {
 	margin-left: 5px;
 }
+
+.sticky-access
+{
+	width: 46px;
+    position: fixed;
+    top: 10%;
+    right: 0;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    z-index: 50;
+    background: #fff;
+    -webkit-box-shadow: 0 0 50px 0 rgba(82,63,105,.15);
+    box-shadow: 0 0 50px 0 rgba(82,63,105,.15);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    border-radius: 3px 0 0 3px;
+}
+
+.sticky-access-item
+{
+	margin: 0;
+    padding: 5px;
+    text-align: center;
+}
+
+.sticky-access-group
+{
+	column-count: 4;
+  	column-gap: 4rem;
+  	list-style: none;
+}
