@@ -19,14 +19,7 @@ class SuperAdminMiddleware
     {
         $auth=new AuthLoader();
         if ($auth->has_login()) {
-            $session_name=laraconfig('global','session_name');
-            $group_name=session($session_name)['group_name'];
-            if($group_name=='superadmin')
-            {
-                return $next($request);
-            }else{
-                return redirect()->route('dashboard')->with('error', 'Not Authentication');
-            }
+            return $next($request);
         }else{
             return redirect()->route('login')->with('error', 'You must login first!');
         }
