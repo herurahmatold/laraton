@@ -11,6 +11,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "edwinhoksberg/php-fcm": "^1.0",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
