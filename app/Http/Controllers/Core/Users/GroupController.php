@@ -12,8 +12,6 @@ class GroupController extends Controller
 {
     public function index()
     {
-        access_page(array('superadmin'));
-
         $data=UserGroup::where('id','!=',1)
             ->orderBy('id','desc')
             ->get();
@@ -39,7 +37,6 @@ class GroupController extends Controller
     
     public function store(Request $request)
     {
-        access_page(array('superadmin'));
         $validatedData = $request->validate([
             'name' => 'required',
             'value' => 'required',
@@ -63,7 +60,6 @@ class GroupController extends Controller
 
     public function edit($id)
     {
-        access_page(array('superadmin'));
         $data=UserGroup::where('id',$id)->where('id','!=',1)->first(['id','group_name','group_value']);
         if(!$data)
         {
@@ -75,7 +71,6 @@ class GroupController extends Controller
 
     public function update(Request $request)
     {
-        access_page(array('superadmin'));
         $validatedData = $request->validate([
            'name' => 'required',
            'value' => 'required',
@@ -101,7 +96,6 @@ class GroupController extends Controller
 
     public function delete($id)
     {
-        access_page(array('superadmin'));
         $userLib=new UserLib();
         $action=$userLib->user_group_delete($id);
         if($action['status']==true)

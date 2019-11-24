@@ -13,7 +13,6 @@ class UserController extends Controller
     private $status=[0=>'Non Active',1=>'Active'];
     public function index()
     {
-        access_page(array('superadmin'));        
         return laraview('core.users.user.index',['title'=>'User Manager'],['status'=>$this->status]);
     }
 
@@ -45,7 +44,6 @@ class UserController extends Controller
 
     public function add()
     {
-        access_page(array('superadmin'));
         return laraview('core.users.user.add',['title'=>'Add User'],['status'=>$this->status]);
     }
 
@@ -110,7 +108,6 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        access_page(array('superadmin'));
         $userlib=new UserLib();
         if($userlib->user_delete($id,false)==true)
         {
@@ -122,7 +119,6 @@ class UserController extends Controller
 
     public function detail($id)
     {
-        access_page(array('superadmin'));
         $data=Users::where('id',$id)->first();
         if(empty($data))
         {
@@ -159,7 +155,6 @@ class UserController extends Controller
 
     public function user_update (Request $request)
     {
-        access_page(array('superadmin'));
         $validatedData = $request->validate([
             'userid' => 'required',
             'name' => 'required',
