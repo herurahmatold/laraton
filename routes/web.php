@@ -70,12 +70,9 @@ Route::group(['middleware' => 'check.authentication'], function () {
             Route::post('profile/avatar/update', 'Core\Member\ProfileController@avatar_update')->name('user.profile.avatar.update');
         });
     });
-    
-    
-
-
-    /* SET ROUTE WITH AUTHENTICATION BACKEND HERE */
 
 });
+
+include('custom.php');
 
 /* SET ROUTE WITHOUT AUTHENTICATION BACKEND HERE */
