@@ -3,6 +3,7 @@
 namespace App\Libraries;
 
 use GuzzleHttp\Client;
+use App\Models\Core\Options;
 use DB;
 
 
@@ -19,9 +20,9 @@ class Recaptcha
 
     private function init_config($key)
     {
-        $check = DB::table('options')->where('option_key', $key)->count();
+        $check = Options::where('option_key', $key)->count();
         if ($check < 1) {
-            DB::table('options')->insert([
+            Options::insert([
                 'option_key' => $key
             ]);
         }

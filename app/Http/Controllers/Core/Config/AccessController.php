@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Core\Config;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Core\PageAccess;
+use App\Models\Core\PageAccessDetail;
+use App\Models\Core\UserGroup;
 use DB;
 
 class AccessController extends Controller
@@ -16,18 +19,18 @@ class AccessController extends Controller
             {
                 $name = $request->input('name');
                 $title = $request->input('title');
-                $query=DB::table('page_access')->where('route_name',$name);
+                $query= PageAccess::where('route_name',$name);
                 
                 if($query->count() < 1)
                 {
-                    DB::table('page_access')->insert([
+                    PageAccess::insert([
                         'title_page'=>$title,
                         'route_name'=>$name
                     ]);
                 }
                 $data = $query->first();
                 $group_access=[];
-                $group=DB::table('user_groups')->whereNotIn('id',[1])->get();
+                $group= UserGroup::whereNotIn('id',[1])->get();
                 if(!empty($group))
                 {
                     foreach($group as $g)
@@ -54,23 +57,23 @@ class AccessController extends Controller
             $name = $request->input('name');
             $title = $request->input('title');
             $group = $request->input('user_group');
-            $query = DB::table('page_access')->where('route_name', $name);
+            $query = PageAccess::where('route_name', $name);
 
             if ($query->count() < 1) {
-                DB::table('page_access')->insert([
+                PageAccess::insert([
                     'title_page' => $title,
                     'route_name' => $name
                 ]);
             }
             $data = $query->first();
-            DB::table('page_access_detail')->where('page_access_id', $data->id)->delete();
+            PageAccessDetail::where('page_access_id', $data->id)->delete();
             if(!empty($group))
             {
                 
                 
                 foreach($group as $r)
                 {
-                    DB::table('page_access_detail')->insert([
+                    PageAccessDetail::insert([
                         'page_access_id'=>$data->id,
                         'user_group_id'=>$r
                     ]);
@@ -93,7 +96,7 @@ class AccessController extends Controller
 
     private function check_access($groupID,$accessID)
     {
-        $check=DB::table('page_access_detail')->where('page_access_id',$accessID)->where('user_group_id',$groupID)->count();
+        $check=PageAccessDetail::where('page_access_id',$accessID)->where('user_group_id',$groupID)->count();
         if($check)
         {
             return true;

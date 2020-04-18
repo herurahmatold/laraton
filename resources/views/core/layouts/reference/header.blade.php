@@ -5,6 +5,7 @@
 <?php
 if (user_group_name() == 'superadmin') {
     $route_name=get_route_name();
+    
     $route_no_access=laraconfig('global','route_no_access');
     if(!in_array($route_name,$route_no_access))
     {

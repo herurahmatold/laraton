@@ -70,7 +70,7 @@ class UserLib
 
     public function user_email_exists($email)
     {
-        $count=User::where('email',$email)->count();
+        $count=Users::where('email',$email)->count();
         return $count;
     }
 

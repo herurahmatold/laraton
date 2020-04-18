@@ -1,7 +1,7 @@
 {
     "name": "herurahmat/laraton",
     "type": "project",
-    "version":"1.1.0",
+    "version":"1.2.0",
     "description": "The Laravel Skeleton.",
     "keywords": [
         "skeleton",
@@ -13,9 +13,11 @@
         "php": "^7.2",
         "edwinhoksberg/php-fcm": "^1.0",
         "fideloper/proxy": "^4.0",
+        "graham-campbell/flysystem": "^6.1",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^1.0",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

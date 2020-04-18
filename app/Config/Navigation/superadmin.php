@@ -37,10 +37,11 @@ $menu_config=[
             'Logo & Favicon'=>[
                 'icon'=>'fa fa-circle-o',
                 'route'=>'core.config.logo'
-            ],
+            ]
         ]
     ]
 ];
+
 
 return array_merge($menu_admin,$menu_config);
 

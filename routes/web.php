@@ -54,6 +54,14 @@ Route::group(['middleware' => 'check.authentication'], function () {
             Route::post('general/update', 'Core\Config\GeneralController@update')->name('core.config.general.update');
             Route::get('logo', 'Core\Config\LogoController@index')->name('core.config.logo');
             Route::post('logo/update', 'Core\Config\LogoController@update')->name('core.config.logo.update');
+
+            Route::get('menu', 'Core\Config\MenuController@index')->name('core.config.menu');
+            Route::get('menu/get_data', 'Core\Config\MenuController@get_data')->name('core.config.menu.get_data');
+            Route::post('menu/store', 'Core\Config\MenuController@store')->name('core.config.menu.store');
+            Route::get('menu/edit', 'Core\Config\MenuController@edit')->name('core.config.menu.edit');
+            Route::post('menu/update', 'Core\Config\MenuController@update')->name('core.config.menu.update');
+            Route::get('menu/delete', 'Core\Config\MenuController@delete')->name('core.config.menu.delete');
+            Route::get('menu/menu_order', 'Core\Config\MenuController@menu_order')->name('core.config.menu.menu_order');
         });
 
         Route::prefix('access')->group(function () {
