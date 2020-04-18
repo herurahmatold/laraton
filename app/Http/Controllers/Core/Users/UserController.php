@@ -18,17 +18,19 @@ class UserController extends Controller
 
     public function get_data(DataTables $dt,Request $request)
     {
-        $query=Users::select('users_laraton.id as id', 'users_laraton.name as nama', 'user_groups_laraton.group_value as group', 'users_laraton.email as email', 'users_laraton.status as status')
-    		->leftJoin('user_groups_laraton', 'users_laraton.user_group_id','=', 'user_groups_laraton.id')
-            ->where('users_laraton.isDeleted','=',0)
-            ->where('users_laraton.user_group_id','!=',1);
+        $user_table='laraton_users';
+        $group_table = 'laraton_user_groups';
+        $query=Users::select($user_table.'.id as id', $user_table.'.name as nama', $group_table.'.group_value as group', $user_table.'.email as email', $user_table.'.status as status')
+    		->leftJoin($group_table.'', $user_table.'.user_group_id','=', $group_table.'.id')
+            ->where($user_table.'.isDeleted','=',0)
+            ->where($user_table.'.user_group_id','!=',1);
 		if($request->input('status') !='')
 		{
-			$query->where('users_laraton.status',$request->input('status'));
+			$query->where($user_table.'.status',$request->input('status'));
         }
         if(!empty($request->input('group')))
 		{
-			$query->where('users_laraton.user_group_id',$request->input('group'));
+			$query->where($user_table.'.user_group_id',$request->input('group'));
 		}
 		return $dt->eloquent($query)
 				->addColumn('action', function($u){
