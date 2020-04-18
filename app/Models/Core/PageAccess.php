@@ -4,8 +4,8 @@ namespace App\Models\Core;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Options extends Model
+class PageAccess extends Model
 {
-    protected $table= 'options_laraton';
+    protected $table = 'page_access_laraton';
     public $timestamps = false;
 }

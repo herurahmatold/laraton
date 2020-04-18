@@ -18,17 +18,17 @@ class UserController extends Controller
 
     public function get_data(DataTables $dt,Request $request)
     {
-        $query=Users::select('users.id as id','users.name as nama','user_groups.group_value as group','users.email as email','users.status as status')
-    		->leftJoin('user_groups','users.user_group_id','=','user_groups.id')
-            ->where('users.isDeleted','=',0)
-            ->where('users.user_group_id','!=',1);
+        $query=Users::select('users_laraton.id as id', 'users_laraton.name as nama', 'user_groups_laraton.group_value as group', 'users_laraton.email as email', 'users_laraton.status as status')
+    		->leftJoin('user_groups_laraton', 'users_laraton.user_group_id','=', 'user_groups_laraton.id')
+            ->where('users_laraton.isDeleted','=',0)
+            ->where('users_laraton.user_group_id','!=',1);
 		if($request->input('status') !='')
 		{
-			$query->where('users.status',$request->input('status'));
+			$query->where('users_laraton.status',$request->input('status'));
         }
         if(!empty($request->input('group')))
 		{
-			$query->where('users.user_group_id',$request->input('group'));
+			$query->where('users_laraton.user_group_id',$request->input('group'));
 		}
 		return $dt->eloquent($query)
 				->addColumn('action', function($u){

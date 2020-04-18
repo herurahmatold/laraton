@@ -1,4 +1,14 @@
 <?php
+use App\Libraries\Recaptcha;
+
+if(!function_exists('com_recaptcha'))
+{
+    function com_recaptcha()
+    {
+        $recaptcha=new Recaptcha();
+        return $recaptcha->generate();
+    }
+}
 
 if(!function_exists('com_month_select'))
 {

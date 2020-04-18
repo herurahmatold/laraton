@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Core\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Libraries\Core\AuthLoader;
+use App\Libraries\Recaptcha;
 
 class LoginController extends Controller
 {
@@ -33,16 +34,21 @@ class LoginController extends Controller
             'username' => 'Username',
             'password' => 'Password'
         ];
-
-        $this->validate($request, $validation, $message, $names);
-
-        $AuthLoader=new AuthLoader();
-        $action=$AuthLoader->login($request->username,$request->password);
-        if($action['status']==TRUE)
+        
+        $recaptcha=new Recaptcha();
+        if($recaptcha->validate($request->input("g-recaptcha-response"))==true)
         {
-            return redirect()->route('dashboard');
+            $this->validate($request, $validation, $message, $names);
+
+            $AuthLoader = new AuthLoader();
+            $action = $AuthLoader->login($request->username, $request->password);
+            if ($action['status'] == TRUE) {
+                return redirect()->route('dashboard');
+            } else {
+                return back()->withInput($request->flashExcept('login_error'))->with('error', $action['message']);
+            }
         }else{
-            return back()->withInput($request->flashExcept('login_error'))->with('error', $action['message']);
+            return back()->withInput($request->flashExcept('login_error'))->with('error', "Recaptcha Invalid");
         }
     }
 }
