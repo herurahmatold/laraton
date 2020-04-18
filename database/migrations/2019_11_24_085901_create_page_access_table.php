@@ -12,7 +12,7 @@ class CreatePageAccessTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('page_access_laraton', function(Blueprint $table)
+		Schema::create('laraton_page_access', function(Blueprint $table)
 		{
 			$table->integer('id', true);
 			$table->string('title_page', 100);
@@ -28,7 +28,7 @@ class CreatePageAccessTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('page_access_laraton');
+		Schema::drop('laraton_page_access');
 	}
 
 }

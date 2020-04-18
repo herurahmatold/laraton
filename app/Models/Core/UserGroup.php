@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserGroup extends Model
 {
-    protected $table= 'user_groups_laraton';
+    protected $table= 'laraton_user_groups';
     public $timestamps = false;
 }

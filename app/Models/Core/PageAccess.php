@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PageAccess extends Model
 {
-    protected $table = 'page_access_laraton';
+    protected $table = 'laraton_page_access';
     public $timestamps = false;
 }
