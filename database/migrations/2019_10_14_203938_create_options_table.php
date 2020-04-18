@@ -12,7 +12,7 @@ class CreateOptionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('options', function(Blueprint $table)
+		Schema::create('options_laraton', function(Blueprint $table)
 		{
 			$table->integer('id', true);
 			$table->string('option_key', 50)->index('option_key');
@@ -29,7 +29,7 @@ class CreateOptionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('options');
+		Schema::drop('options_laraton');
 	}
 
 }

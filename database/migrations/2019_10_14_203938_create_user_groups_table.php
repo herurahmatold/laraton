@@ -12,7 +12,7 @@ class CreateUserGroupsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_groups', function(Blueprint $table)
+		Schema::create('user_groups_laraton', function(Blueprint $table)
 		{
 			$table->integer('id', true);
 			$table->string('group_name', 30)->index('group_name');
@@ -28,7 +28,7 @@ class CreateUserGroupsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('user_groups');
+		Schema::drop('user_groups_laraton');
 	}
 
 }

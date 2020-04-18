@@ -12,7 +12,7 @@ class CreateUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function(Blueprint $table)
+		Schema::create('users_laraton', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true)->unsigned();
 			$table->string('name');
@@ -38,7 +38,7 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('users');
+		Schema::drop('users_laraton');
 	}
 
 }
