@@ -20,6 +20,7 @@ class UserController extends Controller
     {
         $user_table='laraton_users';
         $group_table = 'laraton_user_groups';
+        
         $query=Users::select($user_table.'.id as id', $user_table.'.name as nama', $group_table.'.group_value as group', $user_table.'.email as email', $user_table.'.status as status')
     		->leftJoin($group_table.'', $user_table.'.user_group_id','=', $group_table.'.id')
             ->where($user_table.'.isDeleted','=',0)
